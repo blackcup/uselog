@@ -1,0 +1,5 @@
+rootProject.name = 'uselog'
+include 'demo'
+include 'datasender'
+include 'datareceiver'
+
