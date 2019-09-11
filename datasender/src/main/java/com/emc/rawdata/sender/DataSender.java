@@ -6,4 +6,6 @@ public interface DataSender {
      * @param message
      */
     void send(String message);
+
+    void close();
 }

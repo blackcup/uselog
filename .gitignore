@@ -1,2 +1,7 @@
 .gradle
 gradle
+build/
+datareceiver/build/
+datasender/build/
+demo/build/libs/
+demo/build/tmp/

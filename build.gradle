@@ -13,4 +13,8 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/io.pravega/pravega-common
+    compile group: 'io.pravega', name: 'pravega-common', version: '0.5.1'
+// https://mvnrepository.com/artifact/io.pravega/pravega-client
+    compile group: 'io.pravega', name: 'pravega-client', version: '0.5.1'
 }

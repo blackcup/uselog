@@ -6,4 +6,5 @@ public interface DataReceiver {
      * @return
      */
     String receive();
+    void close();
 }
