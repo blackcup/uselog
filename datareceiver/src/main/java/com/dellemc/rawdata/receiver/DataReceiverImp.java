@@ -14,7 +14,7 @@ public class DataReceiverImp implements DataReceiver{
     private URI controllerURI;
     private String scope = "defaultScope";
     private String streamName = "defaultStream";
-    private String readerGroup = "readerGroup" ;
+    private String readerGroup ;
     EventStreamReader<String> reader;
     public DataReceiverImp(String url) throws URISyntaxException {
         this.controllerURI = new URI(url);
@@ -24,6 +24,8 @@ public class DataReceiverImp implements DataReceiver{
         StreamConfiguration streamConfig = StreamConfiguration.builder()
                 .scalingPolicy(ScalingPolicy.fixed(10))
                 .build();
+        readerGroup = UUID.randomUUID().toString().replace("_","");
+        String readerName = UUID.randomUUID().toString().replace("_","");
         final boolean streamIsNew = streamManager.createStream(scope, streamName, streamConfig);
         final ReaderGroupConfig readerGroupConfig = ReaderGroupConfig.builder()
                 .stream(Stream.of(scope, streamName))
@@ -32,15 +34,15 @@ public class DataReceiverImp implements DataReceiver{
             readerGroupManager.createReaderGroup(readerGroup, readerGroupConfig);
 
         ClientFactory clientFactory = ClientFactory.withScope(scope, controllerURI);
-        reader = clientFactory.createReader("reader",
+        reader = clientFactory.createReader(readerName,
                 readerGroup,
                 new JavaSerializer<String>(),
                 ReaderConfig.builder().build());
-        EventRead<String> stringEventRead = reader.readNextEvent(1000);
+        EventRead<String> stringEventRead = reader.readNextEvent(30000);
     }
 
     public String receive() {
-        EventRead<String> stringEventRead = reader.readNextEvent(1000);
+        EventRead<String> stringEventRead = reader.readNextEvent(30000);
         if (stringEventRead == null){
             return null;
         }
