@@ -1,5 +1,7 @@
 package com.dellemc.rawdata.analyze;
 
+import java.sql.SQLException;
+
 public interface Analyzer {
     /**
      * 分析每条message的内容
@@ -24,4 +26,5 @@ public interface Analyzer {
      *          vmop                    [threads: total initially_running wait_to_block]    [time: spin block sync cleanup vmop] page_trap_count
      */
     void analyze(String message);
+    void close() throws SQLException, Exception;
 }

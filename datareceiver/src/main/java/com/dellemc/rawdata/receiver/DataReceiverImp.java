@@ -8,6 +8,7 @@ import io.pravega.client.stream.impl.JavaSerializer;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class DataReceiverImp implements DataReceiver{
@@ -58,12 +59,9 @@ public class DataReceiverImp implements DataReceiver{
         DataReceiverImp dataReceiverImp = new DataReceiverImp("tcp://10.247.101.104:9090");
         while(true){
             String receive = dataReceiverImp.receive();
-            if (receive == null){
-                break;
-            }
             System.out.println(receive);
         }
-        dataReceiverImp.close();
-        System.exit(0);
+        //dataReceiverImp.close();
+        //System.exit(0);
     }
 }

@@ -4,6 +4,8 @@ import com.emc.rawdata.generate.DataGenerators;
 import com.emc.rawdata.sender.DataSender;
 import com.emc.rawdata.sender.DataSenderImp;
 
+import java.util.concurrent.TimeUnit;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         if (args.length == 0){
@@ -20,6 +22,7 @@ public class Main {
         DataSender dataSender = new DataSenderImp(url);
         try {
             while (dataGenerators.hasNext()){
+                TimeUnit.MILLISECONDS.sleep(500);
                 dataSender.send(dataGenerators.generator());
             }
         }finally {
