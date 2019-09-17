@@ -1,9 +1,11 @@
 package com.emc.rawdata.generate;
+import org.apache.flink.streaming.api.functions.source.SourceFunction;
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
 
-public class DataGenerators implements DataGenerator, DataCollector{
+public class DataGenerators implements DataGenerator, DataCollector, SourceFunction<String> {
     private static ArrayList<String> list;
 
     private static File f;
@@ -60,4 +62,15 @@ public class DataGenerators implements DataGenerator, DataCollector{
         return list;
     }
 
+    @Override
+    public void run(SourceContext<String> ctx) throws Exception {
+        if (hasNext()){
+            ctx.collect(generator());
+        }
+    }
+
+    @Override
+    public void cancel() {
+
+    }
 }
